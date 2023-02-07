@@ -5,7 +5,7 @@
     
       cmsenv
       cmsRun analyze_2022_Run3_GlobalRun.py
-      phyton3 CompareDataEmul.py
+      python3 CompareDataEmul.py
 
 CompareDataEmul does the data-emulator comparison plots.
 In Debug/HcalDebug/plugins: AnalyzeCT.cc CompareTP.cc for root file change.
