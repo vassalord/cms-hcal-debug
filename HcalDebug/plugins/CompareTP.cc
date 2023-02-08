@@ -308,6 +308,18 @@ CompareTP::analyze(const edm::Event& event, const edm::EventSetup& setup)
          continue;
       tp_ieta_ = id.ieta();
       tp_iphi_ = id.iphi();
+      
+      std::cout << "before " << tp_iphi_ << std::endl;
+      
+      if (tp_iphi_%4 == 1 || tp_iphi_%4 == 2)  tp_iphi_ -= 2;
+      else tp_iphi_ +=2;
+      if (tp_iphi_ == 0) tp_iphi_ = 72;
+      if (tp_iphi_ == -1) tp_iphi_ = 71;
+      if (tp_iphi_ == 73) tp_iphi_ = 1;
+      if (tp_iphi_ == 74) tp_iphi_ = 2;
+
+       std::cout << "after  " << tp_iphi_ << std::endl;
+      
       tp_depth_ = id.depth();
       tp_version_ = id.version();
       digi_map::const_iterator digi;
