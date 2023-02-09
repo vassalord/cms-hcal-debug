@@ -308,22 +308,23 @@ CompareTP::analyze(const edm::Event& event, const edm::EventSetup& setup)
          continue;
       tp_ieta_ = id.ieta();
       tp_iphi_ = id.iphi();
-      
-      std::cout << "before " << tp_iphi_ << std::endl;
-      
-      if (tp_iphi_%4 == 1 || tp_iphi_%4 == 2)  tp_iphi_ -= 2;
-      else tp_iphi_ +=2;
-      if (tp_iphi_ == 0) tp_iphi_ = 72;
-      if (tp_iphi_ == -1) tp_iphi_ = 71;
-      if (tp_iphi_ == 73) tp_iphi_ = 1;
-      if (tp_iphi_ == 74) tp_iphi_ = 2;
-
-       std::cout << "after  " << tp_iphi_ << std::endl;
-      
       tp_depth_ = id.depth();
       tp_version_ = id.version();
       digi_map::const_iterator digi;
-      if ((digi = ds.find(id)) != ds.end()) {
+      
+
+      std::cout << "before " << id.iphi() << std::endl;
+      auto offset_id(id);
+    	if (id.iphi() % 4 == 1 || id.iphi() % 4 == 2) offset_id = HcalTrigTowerDetId(id.ieta(), (id.iphi() - 2), id.depth(), id.version());
+        else offset_id = HcalTrigTowerDetId(id.ieta(), (id.iphi() + 2), id.depth(), id.version());
+        if (id.iphi() == 0) offset_id = HcalTrigTowerDetId(id.ieta(), (id.iphi() + 72), id.depth(), id.version());
+        if (id.iphi() == -1) offset_id = HcalTrigTowerDetId(id.ieta(), (id.iphi() + 72), id.depth(), id.version());
+        if (id.iphi() == 73) offset_id = HcalTrigTowerDetId(id.ieta(), (id.iphi() - 72 ), id.depth(), id.version());
+        if (id.iphi() == 74) offset_id = HcalTrigTowerDetId(id.ieta(), (id.iphi() - 72), id.depth(), id.version());
+      
+      
+      if ((digi = ds.find(offset_id)) != ds.end()) {
+      std::cout << "after " << offset_id.iphi() << std::endl;
 	//	if (tp_ieta_ == 1 && tp_iphi_ == 1 && ((event.id().event() > 8000 && event.id().event() < 8020) || (event.id().event() > 3000 && event.id().event() < 3020) || (event.id().event() > 6050 && event.id().event() < 6070))) {
 	//	if (tp_ieta_ == 1 && tp_iphi_ == 1) { 
 	if (tp_ieta_ == 1 && tp_iphi_ == 1 && (event.id().event() == 8000 || event.id().event() == 9149|| event.id().event() == 2050 || event.id().event() == 5608 || event.id().event() == 5609 || event.id().event() == 3031)) {

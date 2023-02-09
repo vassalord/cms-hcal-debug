@@ -44,8 +44,8 @@ process.TFileService = cms.Service("TFileService",
 # LUTGenerationMode = True => use L1TriggerObjects (for MC; default)
 #process.HcalTPGCoderULUT.LUTGenerationMode = cms.bool(True)
 
-process.HcalTPGCoderULUT.read_XML_LUTs = cms.bool(True)
-process.HcalTPGCoderULUT.inputLUTs = cms.FileInPath("/afs/cern.ch/user/s/shoienko/CMSSW_12_6_0_pre1/src/Debug/HcalDebug/test/LUT-Run3Sept2022.xml" )
+#process.HcalTPGCoderULUT.read_XML_LUTs = cms.bool(True)
+#process.HcalTPGCoderULUT.inputLUTs = cms.FileInPath("/afs/cern.ch/user/s/shoienko/CMSSW_12_6_0_pre1/src/Debug/HcalDebug/test/LUT-Run3Sept2022.xml" )
 
 process.simHcalTriggerPrimitiveDigis.inputLabel = cms.VInputTag("hcalDigis", "hcalDigis")
 process.simHcalTriggerPrimitiveDigis.inputUpgradeLabel = cms.VInputTag("hcalDigis", "hcalDigis")
